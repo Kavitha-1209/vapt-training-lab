@@ -1,0 +1,58 @@
+<%- include('layout/header') %>
+
+<h1 style="text-align:center;">We’d love your Feedback</h1>
+<p style="text-align:center; margin-bottom:30px;">
+  Every response helps us improve.
+</p>
+
+<div class="grid" style="max-width:700px; margin:auto;">
+
+  <div class="card">
+
+    <form action="/feedback" method="POST">
+
+      <!-- Rating -->
+      <label><b>Rating</b></label><br><br>
+      <select name="rating" required style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc;">
+        <option value="">Select rating</option>
+        <option>⭐</option>
+        <option>⭐⭐</option>
+        <option>⭐⭐⭐</option>
+        <option>⭐⭐⭐⭐</option>
+        <option>⭐⭐⭐⭐⭐</option>
+      </select>
+
+      <br><br>
+
+      <!-- Category -->
+      <label><b>Category</b></label><br><br>
+      <select name="category" required style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc;">
+        <option value="">Choose category</option>
+        <option>UI</option>
+        <option>Performance</option>
+        <option>Bug</option>
+        <option>Other</option>
+      </select>
+
+      <br><br>
+
+      <!-- Message -->
+      <label><b>Your Feedback</b></label><br><br>
+      <textarea name="message" rows="5" required 
+        style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc;"
+        placeholder="Tell us what you liked or what needs improvement..."></textarea>
+
+      <br><br>
+
+      <!-- Submit -->
+      <button type="submit" class="btn" style="width:100%;">
+        Send Feedback
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
+
+<%- include('layout/footer') %>

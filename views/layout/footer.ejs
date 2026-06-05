@@ -1,0 +1,74 @@
+<footer style="border-top:1px solid var(--parchment); padding:2rem 0; margin-top:3rem; background:var(--white);">
+  <div class="container flex-between" style="flex-wrap:wrap; gap:1rem;">
+    <div style="display:flex; align-items:center; gap:0.75rem;">
+      <span class="navbar-logo" style="font-size:1.1rem;">Lumi<span style="color:var(--gold)">è</span>re</span>
+      <span style="font-size:0.75rem; color:var(--text-muted);">© <%= new Date().getFullYear() %> All rights reserved</span>
+    </div>
+    <div style="display:flex; gap:1.5rem;">
+      <a href="#" style="font-size:0.8rem; color:var(--text-muted);">Privacy</a>
+      <a href="#" style="font-size:0.8rem; color:var(--text-muted);">Terms</a>
+      <a href="/feedback" style="font-size:0.8rem; color:var(--text-muted);">Support</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Navbar scroll shadow
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  // Scroll-triggered entrance for cards
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.card, .product-card, .stat-item').forEach((el, i) => {
+      if (!el.closest('[class*="stagger-"]')) {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(16px)';
+        el.style.transition = `opacity 0.5s ${i * 0.06}s ease, transform 0.5s ${i * 0.06}s ease`;
+        observer.observe(el);
+      }
+    });
+  }
+
+  // Rating stars
+  document.querySelectorAll('.rating-group').forEach(group => {
+    const stars = group.querySelectorAll('.rating-star');
+    stars.forEach((star, i) => {
+      star.addEventListener('click', () => {
+        stars.forEach((s, j) => s.classList.toggle('active', j <= i));
+        const input = group.nextElementSibling;
+        if (input && input.type === 'hidden') input.value = i + 1;
+      });
+      star.addEventListener('mouseenter', () => {
+        stars.forEach((s, j) => s.style.color = j <= i ? 'var(--gold)' : 'var(--parchment)');
+      });
+      star.addEventListener('mouseleave', () => {
+        stars.forEach(s => s.style.color = s.classList.contains('active') ? 'var(--gold)' : 'var(--parchment)');
+      });
+    });
+  });
+
+  // Label color on focus
+  document.querySelectorAll('.form-input, .form-textarea').forEach(el => {
+    el.addEventListener('focus', () => {
+      el.closest('.form-group')?.querySelector('.form-label')?.style.setProperty('color', 'var(--caramel)');
+    });
+    el.addEventListener('blur', () => {
+      el.closest('.form-group')?.querySelector('.form-label')?.style.setProperty('color', '');
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<%- include('layout/header') %>
+
+<style>
+body {
+  background: #f5f6f8;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* Container */
+.products-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* Title */
+.page-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+/* Grid */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+/* Card */
+.product-card {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+}
+
+/* Image */
+.product-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+/* Body */
+.product-body {
+  padding: 16px;
+}
+
+/* Name */
+.product-name {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Price */
+.product-price {
+  margin: 10px 0;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Button */
+.add-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #000;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.add-btn:hover {
+  background: #333;
+}
+</style>
+
+<div class="products-container">
+
+  <div class="page-title">Products</div>
+
+  <div class="products-grid">
+
+    <% products.forEach(product => { %>
+
+      <div class="product-card">
+
+        <% if (product.image) { %>
+          <img src="<%= product.image %>" class="product-image">
+        <% } else { %>
+          <img src="https://via.placeholder.com/300x200" class="product-image">
+        <% } %>
+
+        <div class="product-body">
+          <div class="product-name"><%= product.name %></div>
+
+          <div class="product-price">
+            ₹<%= product.price.toLocaleString("en-IN") %>
+          </div>
+
+          <button class="add-btn">Add to Cart</button>
+        </div>
+
+      </div>
+
+    <% }) %>
+
+  </div>
+
+</div>
+
+<%- include('layout/footer') %>

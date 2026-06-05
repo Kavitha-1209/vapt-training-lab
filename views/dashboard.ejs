@@ -1,0 +1,110 @@
+<%- include('layout/header') %>
+
+<style>
+  .dashboard {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+
+  .dashboard h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+
+  .dashboard p {
+    color: #777;
+    margin-bottom: 30px;
+  }
+
+  /* Cards */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    transition: 0.3s;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+  }
+
+  .card-title {
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 8px;
+  }
+
+  .card h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .card p {
+    font-size: 14px;
+    color: #666;
+  }
+
+  .card a {
+    display: inline-block;
+    margin-top: 12px;
+    color: #c9a84c;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .dashboard-header {
+    margin-top: 100px;  /* push below navbar */
+    margin-bottom: 30px;
+    padding: 10px;
+}
+</style>
+
+
+<div class="dashboard-header">
+    <h1>Welcome back</h1>
+    <p>Manage your store efficiently from here.</p>
+</div>
+
+<div class="grid">
+
+  <div class="card">
+    <small>Catalog</small>
+    <h3>Products</h3>
+    <p>View and manage your product listings.</p>
+    <a href="/products" class="btn">Go →</a>
+  </div>
+
+  <div class="card">
+    <small>Profile</small>
+    <h3>Account</h3>
+    <p>Update your personal details.</p>
+    <a href="/account" class="btn">Go →</a>
+  </div>
+
+  <div class="card">
+    <small>Community</small>
+    <h3>Feedback</h3>
+    <p>Share your thoughts.</p>
+    <a href="/feedback" class="btn">Go →</a>
+  </div>
+<% if (user && user.role === 'admin') { %>
+
+  <div class="card" style="margin-top:30px;">
+    <small>Control</small>
+    <h3>Admin Panel</h3>
+    <p>Manage users and products.</p>
+    <a href="/admin" class="btn">Go →</a>
+  </div>
+
+<% } %>
+</div>
+
+<%- include('layout/footer') %>

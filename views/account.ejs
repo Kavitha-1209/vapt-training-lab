@@ -1,0 +1,129 @@
+<%- include('layout/header') %>
+
+<style>
+:root {
+  --bg: #f9f9f7;
+  --card: #ffffff;
+  --border: #e5e5e5;
+  --gold: #c9a84c;
+  --text-primary: #1a1a1a;
+  --text-secondary: #6f6f6f;
+}
+
+.account-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+/* PROFILE HEADER */
+.profile-header {
+  background: linear-gradient(135deg, #d8c3a5, #bfa07a);
+  padding: 30px;
+  border-radius: 12px;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.profile-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+}
+
+.profile-meta {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+/* CARD */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 25px;
+  margin-bottom: 25px;
+  border-radius: 10px;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+/* INPUT */
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border);
+  margin-top: 5px;
+}
+
+/* BUTTON */
+.btn {
+  background: var(--gold);
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: white;
+  margin-top: 10px;
+}
+</style>
+
+<div class="account-container">
+
+  <!-- HEADER -->
+  <div class="profile-header">
+    <div class="profile-name"><%= user.username %></div>
+    <div class="profile-meta">Account details</div>
+  </div>
+
+  <!-- PERSONAL INFO -->
+  <div class="card">
+    <div class="section-title">Personal Details</div>
+
+    <form action="/update-profile" method="POST">
+      <div class="input-group">
+        <label>Username</label>
+        <input type="text" name="username" value="<%= user.username %>">
+      </div>
+
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" name="email" value="<%= user.email %>">
+      </div>
+
+      <button class="btn">Save Changes</button>
+    </form>
+  </div>
+
+  <!-- PASSWORD -->
+  <div class="card">
+    <div class="section-title">Change Password</div>
+
+    <form action="/change-password" method="POST">
+      <div class="input-group">
+        <label>Current Password</label>
+        <input type="password" name="currentPassword">
+      </div>
+
+      <div class="input-group">
+        <label>New Password</label>
+        <input type="password" name="newPassword">
+      </div>
+
+      <button class="btn">Update Password</button>
+    </form>
+  </div>
+
+</div>
+
+<%- include('layout/footer') %>

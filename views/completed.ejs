@@ -1,0 +1,60 @@
+<%- include('layout/header', { title: 'Completed', page: '' }) %>
+
+
+<div style="margin-top: 80px;">
+    <!-- your completed content -->
+</div>
+<div class="report-container">
+
+    <div class="report-header">
+        <h2>🎯 Lab Completed</h2>
+        <span class="severity high">SUCCESS</span>
+    </div>
+
+    <div class="section">
+        <h3>🏆 Achievement</h3>
+        <p>
+        All 5 vulnerabilities have been successfully identified and exploited.
+        This demonstrates a strong understanding of common web application security flaws.
+        </p>
+    </div>
+
+    <div class="section">
+        <h3>📊 Summary</h3>
+        <ul>
+            <li>SQL Injection — Exploited</li>
+            <li>Cross-Site Scripting (XSS) — Exploited</li>
+            <li>Weak Password — Detected</li>
+            <li>Brute Force — Demonstrated</li>
+            <li>IDOR — Access Control Broken</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>🧠 Skills Demonstrated</h3>
+        <ul>
+            <li>Input validation bypass</li>
+            <li>Authentication weaknesses</li>
+            <li>Authorization flaws</li>
+            <li>Session-based attack logic</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>🚀 Next Step</h3>
+        <p>
+        Move towards advanced vulnerabilities like CSRF, authentication bypass, and session hijacking.
+        </p>
+    </div>
+
+  </div>
+  <div class="container" style="text-align: center; margin-top: 100px;">
+    <h1>🎉 Congratulations!</h1>
+    <p>You have successfully completed all vulnerabilities.</p>
+
+    <a href="/dashboard">
+        <button style="padding: 10px 20px;">Go to Dashboard</button>
+    </a>
+</div>
+
+<%- include('layout/footer') %>

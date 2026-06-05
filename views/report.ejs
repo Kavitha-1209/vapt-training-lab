@@ -1,0 +1,393 @@
+<%- include('layout/header') %>
+
+<div style="margin-top: 80px; text-align:center;">
+    <b>Lab Progress:</b> <%= solved ? solved.length : 0 %> / 5 vulnerabilities solved
+    <% if (solved && solved.length === 5) { %>
+    <a href="/completed">
+        <button style="background: green; color: white; padding: 10px 20px; border: none; border-radius: 5px;">
+            🎉 Lab Completed
+        </button>
+    </a>
+<% } %>
+</div>
+
+<div style="text-align:center; margin:10px;">
+    <a href="/reset">
+        <button class="reset-btn">Reset Lab</button>
+    </a>
+</div>
+
+<% if (solved && solved.includes(type)) { %>
+  <div style="
+      background:#d4edda;
+      color:#155724;
+      padding:15px;
+      text-align:center;
+      margin:10px;
+      border-radius:5px;
+  ">
+   ✅ Lab Solved: <%= type.toUpperCase() %> Vulnerability Detected
+  </div>
+<% } %>
+
+<h1 style="text-align:center;">VAPT Vulnerability Report</h1>
+
+<div style="display:flex; justify-content:center;">
+
+<% if(type === "sqli") { %>
+
+<div class="report-container">
+
+    <div class="report-header">
+        <h2>SQL Injection</h2>
+        <span class="severity high">HIGH</span>
+    </div>
+
+    <div class="meta">
+        <div><b>CVSS Score:</b> 9.8</div>
+        <div><b>Endpoint:</b> /login</div>
+        <div><b>Method:</b> POST</div>
+    </div>
+
+    <div class="section">
+        <h3>🧠 Description</h3>
+        <p>
+        The application fails to properly sanitize user input during authentication.
+        This allows attackers to inject malicious SQL queries that manipulate backend
+        database logic, resulting in authentication bypass.
+        </p>
+    </div>
+
+    <div class="section">
+        <h3>⚙️ Attack Mechanics</h3>
+        <p>
+        The payload alters the SQL query logic by forcing a TRUE condition.
+        This tricks the database into returning valid results without verifying credentials.
+        </p>
+    </div>
+
+    <div class="section">
+        <h3>🧪 Proof of Concept</h3>
+        <pre>
+Username: ' OR '1'='1
+Password: anything
+        </pre>
+    </div>
+
+    <div class="section">
+        <h3>🚨 Impact</h3>
+        <ul>
+            <li>Authentication bypass</li>
+            <li>Unauthorized admin access</li>
+            <li>Potential data exposure</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>🛠 Remediation</h3>
+        <ul>
+            <li>Use parameterized queries (Prepared Statements)</li>
+            <li>Implement strict input validation</li>
+            <li>Use ORM frameworks (Sequelize, Prisma)</li>
+            <li>Apply least privilege to DB users</li>
+        </ul>
+    </div>
+
+</div>
+
+<% } %>
+
+</div>
+
+<div style="text-align:center; margin:30px;">
+    <a href="/dashboard">
+        <button style="
+            padding:10px 20px;
+            background:#007bff;
+            color:white;
+            border:none;
+            border-radius:5px;
+        ">
+            Back to Dashboard
+        </button>
+    </a>
+</div>
+<% if(type === "xss") { %>
+
+<div class="report-container">
+
+    <div class="report-header">
+        <h2>Cross-Site Scripting (XSS)</h2>
+        <span class="severity high" style="background:orange;">MEDIUM</span>
+    </div>
+
+    <div class="meta">
+        <div><b>CVSS Score:</b> 6.5</div>
+        <div><b>Endpoint:</b> /feedback</div>
+        <div><b>Method:</b> POST</div>
+    </div>
+
+    <div class="section">
+        <h3>🧠 Description</h3>
+        <p>
+        The application fails to sanitize user input properly, allowing attackers to inject
+        malicious JavaScript into the webpage. This script executes in the victim's browser.
+        </p>
+    </div>
+
+    <div class="section">
+        <h3>⚙️ Attack Mechanics</h3>
+        <p>
+        Injected scripts are executed when the page renders user input. This enables attackers
+        to hijack sessions or manipulate the DOM.
+        </p>
+    </div>
+
+    <div class="section">
+        <h3>🧪 Proof of Concept</h3>
+        <pre>
+<script>alert("XSS")</script>
+        </pre>
+    </div>
+
+    <div class="section">
+        <h3>🚨 Impact</h3>
+        <ul>
+            <li>Session hijacking</li>
+            <li>Credential theft</li>
+            <li>Malicious redirects</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>🛠 Remediation</h3>
+        <ul>
+            <li>Sanitize and escape user input</li>
+            <li>Use output encoding</li>
+            <li>Implement Content Security Policy (CSP)</li>
+        </ul>
+    </div>
+
+</div>
+
+<% } %>
+
+<% if(type === "weak") { %>
+
+<div class="report-container">
+
+    <div class="report-header">
+        <h2>Weak Password</h2>
+        <span class="severity high">HIGH</span>
+    </div>
+
+    <div class="meta">
+        <div><b>CVSS Score:</b> 7.5</div>
+        <div><b>Endpoint:</b> /register</div>
+        <div><b>Method:</b> POST</div>
+    </div>
+
+    <div class="section">
+        <h3>🧠 Description</h3>
+        <p>
+        The application allows users to set weak passwords, making accounts vulnerable
+        to brute-force and credential stuffing attacks.
+        </p>
+    </div>
+
+    <div class="section">
+        <h3>⚙️ Attack Mechanics</h3>
+        <p>
+        Weak passwords reduce entropy and can be easily guessed using automated tools.
+        Attackers can gain unauthorized access with minimal effort.
+        </p>
+    </div>
+
+    <div class="section">
+        <h3>🧪 Proof of Concept</h3>
+        <pre>
+Password: 123
+        </pre>
+    </div>
+
+    <div class="section">
+        <h3>🚨 Impact</h3>
+        <ul>
+            <li>Account compromise</li>
+            <li>Unauthorized access</li>
+            <li>Data exposure</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>🛠 Remediation</h3>
+        <ul>
+            <li>Enforce strong password policy</li>
+            <li>Minimum 8+ characters</li>
+            <li>Use hashing (bcrypt)</li>
+        </ul>
+    </div>
+
+</div>
+
+<% } %>
+<% if(type === "bruteforce") { %>
+
+<div class="report-container">
+
+    <div class="report-header">
+        <h2>Brute Force Attack</h2>
+        <span class="severity high">HIGH</span>
+    </div>
+
+    <div class="meta">
+        <div><b>CVSS Score:</b> 8.5</div>
+        <div><b>Endpoint:</b> /login</div>
+        <div><b>Method:</b> POST</div>
+    </div>
+
+    <div class="section">
+        <h3>🧠 Description</h3>
+        <p>
+        The application allows unlimited login attempts without proper rate limiting 
+        or account lockout mechanisms. This enables attackers to repeatedly guess 
+        user credentials until successful authentication is achieved.
+        </p>
+    </div>
+
+    <div class="section">
+        <h3>⚙️ Attack Mechanics</h3>
+        <p>
+        Attackers automate login attempts using multiple password combinations. 
+        Since there is no restriction on failed attempts, the attacker can eventually 
+        discover valid credentials through trial and error.
+        </p>
+    </div>
+
+    <div class="section">
+        <h3>🧪 Proof of Concept</h3>
+        <pre>
+Username: admin
+<% attempts.forEach((pass) => { %>
+Password: <%= pass %>
+<% }) %>
+
+→ After multiple attempts, system allows continued guessing
+        </pre>
+    </div>
+
+    <div class="section">
+        <h3>🚨 Impact</h3>
+        <ul>
+            <li>Account compromise</li>
+            <li>Unauthorized access</li>
+            <li>Credential stuffing attacks</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>🛠 Remediation</h3>
+        <ul>
+            <li>Implement account lockout after failed attempts</li>
+            <li>Use CAPTCHA to prevent automation</li>
+            <li>Enable rate limiting</li>
+            <li>Use multi-factor authentication (MFA)</li>
+        </ul>
+    </div>
+
+</div>
+
+<% } %>
+
+<% if(type === "idor") { %>
+
+<div class="report-container">
+
+    <div class="report-header">
+        <h2>Insecure Direct Object Reference (IDOR)</h2>
+        <span class="severity high">HIGH</span>
+    </div>
+
+    <div class="meta">
+        <div><b>CVSS Score:</b> 8.2</div>
+        <div><b>Endpoint:</b> /account?id=</div>
+        <div><b>Method:</b> GET</div>
+    </div>
+
+    <div class="section">
+        <h3>🧠 Description</h3>
+        <p>
+        The application exposes user account data based on a user-controlled parameter (<code>id</code>) 
+        without enforcing proper authorization checks. This allows attackers to access other users’ 
+        sensitive information by simply modifying the ID in the URL.
+        </p>
+    </div>
+
+    <div class="section">
+        <h3>⚙️ Attack Mechanics</h3>
+        <p>
+        The attacker manipulates the <code>id</code> parameter in the URL. Since the backend does not 
+        verify whether the requested resource belongs to the authenticated user, it directly returns 
+        another user’s data.
+        </p>
+    </div>
+
+    <div class="section">
+        <h3>🧪 Proof of Concept</h3>
+        <pre>
+Step 1: Login as User A
+Step 2: Visit /account?id=1
+
+Step 3: Change URL
+/account?id=3
+
+Step 4: Application shows another user's data
+        </pre>
+    </div>
+
+    <div class="section">
+        <h3>🚨 Impact</h3>
+        <ul>
+            <li>Unauthorized access to user data</li>
+            <li>Privacy breach</li>
+            <li>Broken access control</li>
+            <li>Horizontal privilege escalation</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>🛠 Remediation</h3>
+        <ul>
+            <li>Validate that requested ID matches logged-in user</li>
+            <li>Do not trust user-controlled parameters</li>
+            <li>Implement proper access control checks</li>
+        </ul>
+
+        <pre>
+if (req.query.id != req.session.user.id) {
+    return res.status(403).send("Unauthorized");
+}
+        </pre>
+    </div>
+
+</div>
+
+<% } %>
+
+<% if (solved && solved.length === 5) { %>
+    <div style="text-align:center; margin-top: 30px;">
+        <a href="/completed">
+            <button style="
+                background: green;
+                color: white;
+                padding: 12px 25px;
+                border: none;
+                border-radius: 6px;
+                font-size: 16px;
+            ">
+                🎉 View Completion
+            </button>
+        </a>
+    </div>
+<% } %>
+<%- include('layout/footer') %>
